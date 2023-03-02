@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<link rel="stylesheet" href="~/Content/addressAPI/main.css" />
+
+<div class="jumbotron">
+    <h1>Tech Support</h1>
+    <p class="lead">Hello, this is a project where I deal with registrating products to related customers and any incidents that may appear.</p>
+</div>
+
+<div class="link-container">
+    <div class="col-md-2">
+        <div class="link">
+            @Html.ActionLink("Customers", "CustomersDisplay", "Customers")
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="link">
+            <i class="fa-solid fa-clipboard-user"></i>
+            @Html.ActionLink("Products", "ProductsDisplay", "Products")
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="link">
+            <i class="fa-solid fa-bed"></i>
+            @Html.ActionLink("Registrations", "RegistrationsDisplay", "Registrations")
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="link">
+            @Html.ActionLink("Incidents", "IncidentsDisplay", "Incidents")
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="link">
+            @Html.ActionLink("Technicians", "TechniciansDisplay", "Technicians")
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="link">
+            @Html.ActionLink("States", "StatesDisplay", "States")
+        </div>
+    </div>
+</div>
+
+@*<h1>THIS IS A TEST</h1>
+<div class="autocomplete-container" id="autocomplete-container"></div>
+ $("#autocomplete-container input").val() this is the JS code to get the value 
+
+<script src="~/Content/addressAPI/main.js" defer></script>*@

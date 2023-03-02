@@ -1,0 +1,78 @@
+﻿@model List<TechSupport.Models.Registration>
+@{
+    ViewBag.Title = "RegistrationsDisplay";
+}
+<script src="~/Content/main.js" defer></script>
+
+<div class="header">
+    <h1>Registrations</h1>
+
+    <div class="right-content">
+        @using (Html.BeginForm("RegistrationsDisplay", "Registrations", FormMethod.Get))
+        {
+            <div class="searchArea">
+                <input type="text" name="searchRegistrations" placeholder="Search...">
+                <input type="submit" name="submit" value="🔍" />
+            </div>
+        }
+
+        <div class="add-link">
+            @Html.ActionLink("Add New Registration", "AddRegistrations", "Registrations")
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12">
+    <table id="Incidents Table" class="table">
+        <thead>
+            <tr>
+                <th scope="col">Customer ID</th>
+                <th scope="col">Product Code</th>
+                <th scope="col">Registration Date</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var r in Model)
+            {
+                <tr>
+                    <td scope="row">
+                        @r.CustomerID
+                    </td>
+                    <td scope="row">
+                        @r.ProductCode
+                    </td>
+                    <td scope="row">
+                        @r.RegistrationDate.ToShortDateString()
+                    </td>
+                    <td scope="row">
+                        <a href="/Registrations/AddRegistrations/@r.CustomerID/@r.ProductCode">Edit</a> 
+                        <form class="deleteRegistrationsForm" action="/Registrations/DeleteRegistrations">
+                            <input type="text" style="display:none" name="txtRegistrationCustomerID" value="@r.CustomerID" />
+                            <input type="text" style="display:none" name="txtRegistrationProductCode" value="@r.ProductCode" />
+                            <input type="submit" class="link-button" value="Delete" />
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+    </ul>
+</nav>
+
+<script>
+    window.addEventListener('load', function () {
+        var page = parseInt('@ViewBag.page');
+        var top = parseInt('@ViewBag.top');
+        var totalItems = parseInt('@ViewBag.totalRegistrations');
+        var searchTerm = ('@ViewBag.searchTerm');
+        var baseURL = "/Registrations/RegistrationsDisplay";
+        var entity = ('@ViewBag.entity');
+
+        createPaging(page, top, totalItems, baseURL, searchTerm, entity);
+    });
+</script>

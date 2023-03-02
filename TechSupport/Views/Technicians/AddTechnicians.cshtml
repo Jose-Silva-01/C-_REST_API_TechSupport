@@ -1,0 +1,32 @@
+﻿@model TechSupport.Models.Technician
+@{
+    ViewBag.Title = "AddTechnicians";
+}
+<script src="~/Content/main.js" defer></script>
+<h2>Add | Edit Technicians</h2>
+
+@using (Html.BeginForm("AddTechnicians", "Technicians", FormMethod.Post, new { @class = "addTechnicianForm" }))
+{
+
+    <div class="col-md-12">
+        <fieldset class="addTechnicians">
+            <legend>Technicians Details: </legend>
+            <div class="fieldDetails">
+                <div class="information2">
+                    <h5>Name</h5>
+                    @Html.TextBoxFor(t => t.Name, new { @class = "form-control", @placeholder = "Name..." })
+                </div>
+                <div class="information3">
+                    <h5>Phone</h5>
+                    @Html.TextBoxFor(t => t.Phone, new { @class = "form-control", @placeholder = "Phone..." })
+                </div>
+                <div class="information4">
+                    <h5>Email</h5>
+                    @Html.TextBoxFor(t => t.Email, new { @class = "form-control", @placeholder = "Email..." })
+                </div>
+                @Html.HiddenFor(t => t.TechID)
+                <input class="submit" type="submit" value="Submit" />
+            </div>
+        </fieldset>
+    </div>
+}

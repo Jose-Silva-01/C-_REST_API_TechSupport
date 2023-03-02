@@ -1,0 +1,84 @@
+﻿@model List<TechSupport.Models.Technician>
+@{
+    ViewBag.Title = "TechniciansDisplay";
+}
+
+<script src="~/Content/main.js" defer></script>
+
+<div class="header">
+    <h1>Technicians</h1>
+
+    <div class="right-content">
+        @using (Html.BeginForm("TechniciansDisplay", "Technicians", FormMethod.Get, new { @class = "addIncidentForm" }))
+        {
+            <div class="searchArea">
+                <input type="text" name="searchTechnicians" placeholder="Search...">
+                <input type="submit" name="submit" value="🔍" />
+            </div>
+        }
+
+        <div class="add-link">
+            @Html.ActionLink("Add New Technician", "AddTechnicians", "Technicians")
+        </div>
+    </div>
+</div>
+
+<section class="content">
+    <div class="col-md-12">
+        <table id="Incidents Table" class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Tech ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var t in Model)
+                {
+                    <tr>
+                        <td scope="row">
+                            @t.TechID
+                        </td>
+                        <td scope="row">
+                            @t.Name
+                        </td>
+                        <td scope="row">
+                            @t.Email
+                        </td>
+                        <td>
+                            @t.Phone
+                        </td>
+                        <td>
+                            <a href="/Technicians/AddTechnicians/@t.TechID">Edit</a> |
+                            <form class="deleteTechniciansForm" action="/Technicians/DeleteTechnicians">
+                                <input type="number" style="display:none" name="txtTechnicianID" value="@t.TechID" />
+                                <input type="submit" class="link-button" value="Delete" />
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+    </ul>
+</nav>
+
+<script>
+    window.addEventListener('load', function () {
+        var page = parseInt('@ViewBag.page');
+        var top = parseInt('@ViewBag.top');
+        var totalItems = parseInt('@ViewBag.totalTechs');
+        var searchTerm = ('@ViewBag.searchTerm');
+        var baseURL = "/Technicians/TechniciansDisplay";
+        var entity = ('@ViewBag.entity');
+
+        createPaging(page, top, totalItems, baseURL, searchTerm, entity);
+    });
+</script>

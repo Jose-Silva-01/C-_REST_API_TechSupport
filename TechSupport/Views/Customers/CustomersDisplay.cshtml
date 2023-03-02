@@ -1,0 +1,94 @@
+﻿@model List<TechSupport.Models.Customer>
+@{
+    ViewBag.Title = "CustomersDisplay";
+}
+
+<script src="~/Content/main.js" defer></script>
+
+<div class="header" >
+    <h1>Customers</h1>
+
+
+    <div class="right-content">
+        <div class="searchArea">
+            @using (Html.BeginForm("CustomersDisplay", "Customers", FormMethod.Get))
+            {
+
+                <input type="text" name="searchCustomers" placeholder="Search...">
+                <input type="submit" name="submit" value="🔍" />
+
+            }
+        </div>
+
+        <div class="add-link">
+            @Html.ActionLink("Add New Customer", "AddCustomers", "Customers")
+        </div>
+    </div>    
+</div>
+
+<div class="col-md-12">
+    <table id="customersTable" class="table">
+        <thead>
+            <tr>
+                <th scope="col">Customer ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">City</th>
+                <th scope="col">State</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Email</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var c in Model)
+            {
+                <tr id="Customer_@c.CustomerID">
+                    <td scope="row">
+                        @c.CustomerID
+                    </td>
+                    <td scope="row">
+                        @c.Name
+                    </td>
+                    <td scope="row">
+                        @c.City
+                    </td>
+                    <td scope="row">
+                        @c.State
+                    </td>
+                    <td scope="row">
+                        @c.Phone
+                    </td>
+                    <td scope="row">
+                        @c.Email
+                    </td>
+                    <td scope="row">
+                        <a href="/Customers/AddCustomers/@c.CustomerID">Edit</a>
+                        <form class="deleteCustomerForm" action="/Customers/DeleteCustomers">
+                            <input type="number" style="display:none" name="txtCustomerID" value="@c.CustomerID" />
+                            <input type="submit" class="link-button" value="Delete"/>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+
+    </ul>
+</nav>
+
+<script>
+    window.addEventListener('load', function () {
+        var page = parseInt('@ViewBag.page');
+        var top = parseInt('@ViewBag.top');
+        var totalItems = parseInt('@ViewBag.totalCustomers');
+        var searchTerm = ('@ViewBag.searchTerm');
+        var baseURL = "/Customers/CustomersDisplay";
+        var entity = ('@ViewBag.entity');
+
+        createPaging(page, top, totalItems, baseURL, searchTerm, entity);
+    });
+</script>

@@ -1,0 +1,36 @@
+﻿@model TechSupport.Models.AddRegistrationList
+@{
+    ViewBag.Title = "AddRegistrations";
+}
+<script src="~/Content/main.js" defer></script>
+<h2>Add | Edit Registrations</h2>
+
+@using (Html.BeginForm("AddRegistrations", "Registrations", FormMethod.Post, new { @class= "addRegistrationForm" }))
+{
+    <div class="col-md-12">
+        <fieldset class="addRegistrations">
+            <legend>Product Details: </legend>
+            <div class="fieldDetails">
+                <div class="information2">
+                    <h5>Customer</h5>
+                    @Html.DropDownListFor(m => m.Registration.CustomerID, new SelectList(Model.Customers, "CustomerID", "Name") , new { @class = "form-control", @placeholder = "Customer..." })
+                </div>
+                <div class="information3">
+                    <h5>Product</h5>
+                    @Html.DropDownListFor(m => m.Registration.ProductCode, new SelectList(Model.Products, "ProductCode", "Name") , new { @class = "form-control", @placeholder = "Product..." })
+                </div>
+                <div class="information4">
+                    <h5>Date</h5>
+                    @if (Model.Registration.CustomerID != 0)
+                    {
+                        @Html.TextBoxFor(m => m.Registration.RegistrationDate, new { @class = "form-control", type = "date", @Value = Model.Registration.RegistrationDate.ToShortDateString() })
+                    }
+                    else
+                    {
+                        @Html.TextBoxFor(m => m.Registration.RegistrationDate, new { @class = "form-control", type = "date", @Value = DateTime.Today.ToShortDateString() })
+                    }
+                </div>
+                <input class="submit" type="submit" value="Submit" />
+        </fieldset>
+    </div>
+}
